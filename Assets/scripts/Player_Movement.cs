@@ -12,6 +12,8 @@ public class Player_Movement : MonoBehaviour
 
     public CharacterController characterController;
     public float speed = 3;
+    public float sprint = 3;
+    public float currentSpeed;
 
 
 
@@ -53,6 +55,14 @@ public class Player_Movement : MonoBehaviour
 
     private void Move()
     {
+        if (Input.GetButton("Sprint"))
+        {
+            currentSpeed = speed + sprint;
+        }
+        else
+        {
+            currentSpeed = speed;
+        }
         float horizontalMove = Input.GetAxis("Horizontal");
         float verticalMove = Input.GetAxis("Vertical");
 
@@ -61,7 +71,7 @@ public class Player_Movement : MonoBehaviour
         Vector3 gravityMove = new Vector3(0, verticalSpeed, 0);
 
         Vector3 move = transform.forward * verticalMove + transform.right * horizontalMove;
-        characterController.Move(speed * Time.deltaTime * move + gravityMove * Time.deltaTime);
+        characterController.Move(currentSpeed * Time.deltaTime * move + gravityMove * Time.deltaTime);
 
 
     }

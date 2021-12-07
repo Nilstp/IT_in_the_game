@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 1093458646}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -299,6 +299,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1134942634444990022, guid: 29b5c768542930349baff6de3bd763c3, type: 3}
+      propertyPath: field of view
+      value: 115
+      objectReference: {fileID: 0}
     - target: {fileID: 1134942634883811980, guid: 29b5c768542930349baff6de3bd763c3, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -346,6 +350,26 @@ PrefabInstance:
     - target: {fileID: 1134942634883812083, guid: 29b5c768542930349baff6de3bd763c3, type: 3}
       propertyPath: m_Name
       value: PlayerComponent
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134942634883812083, guid: 29b5c768542930349baff6de3bd763c3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134942635467622398, guid: 29b5c768542930349baff6de3bd763c3, type: 3}
+      propertyPath: isGrounded
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134942635467622398, guid: 29b5c768542930349baff6de3bd763c3, type: 3}
+      propertyPath: jumpHeight
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134942635467622398, guid: 29b5c768542930349baff6de3bd763c3, type: 3}
+      propertyPath: NumberJumps
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134942635467622398, guid: 29b5c768542930349baff6de3bd763c3, type: 3}
+      propertyPath: mouseSensitivity
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29b5c768542930349baff6de3bd763c3, type: 3}
