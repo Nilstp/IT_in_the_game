@@ -23,14 +23,19 @@ public class Player_Movement : MonoBehaviour
     public float upLimit = -50;
     public float downLimit = 50;
 
+    public float jumpSpeed = 2;
+    private Vector3 movingDirection = Vector3.zero;
+
     // gravity
     private float gravity = 9.87f;
     private float verticalSpeed = 0;
 
     void Update()
     {
-        Move();
+
+        Jump();
         Rotate();
+        Move();
     }
 
     private void Awake()
@@ -53,6 +58,16 @@ public class Player_Movement : MonoBehaviour
         cameraHolder.localRotation = Quaternion.Euler(currentRotation);
     }
 
+    private void Jump()
+    {
+        if (characterController.isGrounded && Input.GetKeyDown("space"))
+        {
+            movingDirection.y = jumpSpeed;
+        }
+        movingDirection.y -= gravity * Time.deltaTime;
+        characterController.Move(movingDirection * Time.deltaTime);
+    }
+
     private void Move()
     {
         if (Input.GetButton("Sprint"))
@@ -72,8 +87,8 @@ public class Player_Movement : MonoBehaviour
 
         Vector3 move = transform.forward * verticalMove + transform.right * horizontalMove;
         characterController.Move(currentSpeed * Time.deltaTime * move + gravityMove * Time.deltaTime);
-
-
     }
+
+   
 }
 
