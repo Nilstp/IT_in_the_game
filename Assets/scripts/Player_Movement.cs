@@ -14,6 +14,7 @@ public class Player_Movement : MonoBehaviour
     public float speed = 3;
     public float sprint = 3;
     public float currentSpeed;
+    private float groundedTimer;
 
 
 
@@ -27,7 +28,7 @@ public class Player_Movement : MonoBehaviour
     private Vector3 movingDirection = Vector3.zero;
 
     // gravity
-    private float gravity = 9.87f;
+    private float gravity = 9.81f;
     private float verticalSpeed = 0;
 
     void Update()
@@ -36,12 +37,13 @@ public class Player_Movement : MonoBehaviour
         Jump();
         Rotate();
         Move();
+        Debug.Log(characterController.isGrounded);
     }
 
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;           //Locked cursor aan het midden
-        Cursor.visible = false;                             //De-activeert coursor
+        Cursor.visible = false;                             //De-activeert cursor
     }
 
     public void Rotate()
@@ -60,9 +62,19 @@ public class Player_Movement : MonoBehaviour
 
     private void Jump()
     {
-        if (characterController.isGrounded && Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space"))
+        {
+            currentSpeed = speed + sprint;
+            Debug.Log("space pressed");
+        }
+        else
+        {
+            currentSpeed = speed;
+        }
+        if (characterController.isGrounded == true && Input.GetKeyDown("space"))
         {
             movingDirection.y = jumpSpeed;
+            Debug.Log("Jumping");
         }
         movingDirection.y -= gravity * Time.deltaTime;
         characterController.Move(movingDirection * Time.deltaTime);
@@ -70,7 +82,7 @@ public class Player_Movement : MonoBehaviour
 
     private void Move()
     {
-        if (Input.GetButton("Sprint"))
+        if(Input.GetButton("Sprint"))
         {
             currentSpeed = speed + sprint;
         }
@@ -81,7 +93,7 @@ public class Player_Movement : MonoBehaviour
         float horizontalMove = Input.GetAxis("Horizontal");
         float verticalMove = Input.GetAxis("Vertical");
 
-        if (characterController.isGrounded) verticalSpeed = 0;
+        if (characterController.isGrounded) verticalSpeed = -0.5f;      //zet dit van 0 naar -0.5f, nu drukt hij de character de grond in waardoor de is ground altij geupdate wordt
         else verticalSpeed -= gravity * Time.deltaTime;
         Vector3 gravityMove = new Vector3(0, verticalSpeed, 0);
 
