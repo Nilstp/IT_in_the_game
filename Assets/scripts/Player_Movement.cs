@@ -37,7 +37,6 @@ public class Player_Movement : MonoBehaviour
         Jump();
         Rotate();
         Move();
-        Debug.Log(characterController.isGrounded);
     }
 
     private void Awake()
@@ -65,7 +64,6 @@ public class Player_Movement : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             currentSpeed = speed + sprint;
-            Debug.Log("space pressed");
         }
         else
         {
@@ -74,7 +72,6 @@ public class Player_Movement : MonoBehaviour
         if (characterController.isGrounded == true && Input.GetKeyDown("space"))
         {
             movingDirection.y = jumpSpeed;
-            Debug.Log("Jumping");
         }
         movingDirection.y -= gravity * Time.deltaTime;
         characterController.Move(movingDirection * Time.deltaTime);

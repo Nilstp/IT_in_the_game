@@ -6,10 +6,11 @@ public class PistolFire : MonoBehaviour
 {
     public GameObject bananaPistol;
     public bool isFiring = false;
+    public float fireRate = 15f;
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1")) 
+        if (Input.GetButton("Fire1")) 
         {
             if(isFiring == false)
             {
@@ -22,7 +23,7 @@ public class PistolFire : MonoBehaviour
     {
         isFiring = true;
         bananaPistol.GetComponent<Animator>().Play("fireGun");
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1f / fireRate);
         bananaPistol.GetComponent<Animator>().Play("New State");
         isFiring = false;
     }
