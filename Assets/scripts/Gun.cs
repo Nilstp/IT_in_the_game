@@ -6,7 +6,7 @@ public class Gun : MonoBehaviour
 {
     public Text bulletCounter;
     public Text totalBullets;
-    public GameObject bananaPistol;
+    public GameObject weapon;
     public bool isFiring = false;
 
     public float damage = 10f;
@@ -63,9 +63,9 @@ public class Gun : MonoBehaviour
     IEnumerator FireThePistol()
     {
         isFiring = true;
-        bananaPistol.GetComponent<Animator>().Play("fireGun");      //speelt de "fireGun" animatie af
+        weapon.GetComponent<Animator>().Play("fireGun");      //speelt de "fireGun" animatie af
         yield return new WaitForSeconds(0.5f / fireRate);           
-        bananaPistol.GetComponent<Animator>().Play("idleGun");      //speelt de "idleGun" animatie af
+        weapon.GetComponent<Animator>().Play("idleGun");      //speelt de "idleGun" animatie af
         isFiring = false;
     }
 

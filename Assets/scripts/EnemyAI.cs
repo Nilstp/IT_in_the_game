@@ -7,9 +7,12 @@ public class EnemyAI : MonoBehaviour
 {
 
     public float health = 50f;
+    public int despawnTime = 3;
 
     NavMeshAgent nm;
     public Transform target;
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,12 +29,18 @@ public class EnemyAI : MonoBehaviour
         health -= amount;
         if(health<= 0f)
         {
-            Die();
+            StartCoroutine(death());
+            //Die();
         }
     }
 
-    void Die()
+    IEnumerator death()
     {
+        animator.SetTrigger("Death");
+        nm.isStopped = true;
+        nm.velocity = Vector3.zero;
+        Destroy(gameObject.GetComponent<Rigidbody>());
+        yield return new WaitForSeconds(despawnTime);
         Destroy(gameObject);
     }
 }
