@@ -9,13 +9,15 @@ public class Gun : MonoBehaviour
     public GameObject weapon;
     public bool isFiring = false;
 
-    public float damage = 10f;
+    public int damage = 10;
     public float range = 100f;
     public float fireRate = 15f;
 
     public Camera fpsCam;
     public GameObject impactEffect;
+    public GameObject impactEffectZombie;
     public Animator animator;
+    public ParticleSystem muzzleFlash;
 
     private float nextTimeToFire = 0f;
     public int maxAmmo = 9;
@@ -84,6 +86,7 @@ public class Gun : MonoBehaviour
     void Shoot ()
     {
         currentAmmo--;
+        muzzleFlash.Play();
 
         RaycastHit hit;
         if(Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))    //checkt of de raycast een hit heeft
@@ -95,8 +98,17 @@ public class Gun : MonoBehaviour
                 target.TakeDamage(damage);                                                          //doet damage aan de EnemyAI die geraakt is
             }
 
-            GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactGO, 2f);
+
+            if (hit.transform.GetComponent<EnemyAI>())
+            {
+                GameObject impactZombieGO = Instantiate(impactEffectZombie, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactZombieGO, 1f);
+            }
+            else
+            {
+                GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactGO, 2f);
+            }
         }
     }
 }

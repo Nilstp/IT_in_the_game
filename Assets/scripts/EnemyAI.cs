@@ -5,9 +5,11 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-
-    public float health = 50f;
+    public int maxHealth = 50;
+    public int health;
     public int despawnTime = 3;
+
+    public HealthBar healthBar;
 
     NavMeshAgent nm;
     public Transform target;
@@ -17,6 +19,8 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         nm = GetComponent<NavMeshAgent>();
+        health = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -24,10 +28,11 @@ public class EnemyAI : MonoBehaviour
     {
         nm.SetDestination(target.position);
     }
-    public void TakeDamage(float amount)
+    public void TakeDamage(int amount)
     {
         health -= amount;
-        if(health<= 0f)
+        healthBar.SetHealth(health);
+        if (health<= 0)
         {
             StartCoroutine(death());
             //Die();
@@ -40,6 +45,7 @@ public class EnemyAI : MonoBehaviour
         nm.isStopped = true;
         nm.velocity = Vector3.zero;
         Destroy(gameObject.GetComponent<Rigidbody>());
+        Destroy(gameObject.GetComponent<CapsuleCollider>());
         yield return new WaitForSeconds(despawnTime);
         Destroy(gameObject);
     }

@@ -16,8 +16,6 @@ public class Player_Movement : MonoBehaviour
     public float currentSpeed;
     private float groundedTimer;
 
-
-
     // camera and rotation
     public Transform cameraHolder;
     public float mouseSensitivity = 2f;
@@ -97,7 +95,5 @@ public class Player_Movement : MonoBehaviour
         Vector3 move = transform.forward * verticalMove + transform.right * horizontalMove;
         characterController.Move(currentSpeed * Time.deltaTime * move + gravityMove * Time.deltaTime);
     }
-
-   
 }
 
